@@ -37,5 +37,12 @@ namespace NETMVCBlot.Controllers
             Process.Start("cmd.exe", "/C ping.exe " + argument);
             return null;
         }
+
+        public JsonResult ExecuteProcess1(string argument)
+        {
+            // CTSECISSUE: OSCommandInjection
+            Process.Start("cmd.exe", "/C ping.exe " + argument);
+            return null;
+        }
     }
 }
