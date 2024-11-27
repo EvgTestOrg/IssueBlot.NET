@@ -37,5 +37,14 @@ namespace NETMVCBlot.Controllers
             Process.Start("cmd.exe", "/C ping.exe " + argument);
             return null;
         }
+
+        public async Task SendMessage(string user, string message)
+        {
+
+            // CTSECISSUE:Command Injection
+            Process.Start("cmd.exe /C C:\\Collect.exe " + message);
+
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
     }
 }
