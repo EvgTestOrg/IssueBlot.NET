@@ -40,9 +40,19 @@ namespace NETMVCBlot.Controllers
 
         public async Task SendMessage(string user, string message)
         {
+            // Define a whitelist of allowed commands
+            var allowedCommands = new List<string> { "safeCommand1", "safeCommand2" };
 
-            // CTSECISSUE:Command Injection
-            Process.Start("cmd.exe /C C:\\Collect.exe " + message);
+            // Validate the message against the whitelist
+            if (allowedCommands.Contains(message))
+            {
+                Process.Start("cmd.exe /C C:\\Collect.exe " + message);
+            }
+            else
+            {
+                // Handle invalid command
+                throw new ArgumentException("Invalid command");
+            }
 
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
